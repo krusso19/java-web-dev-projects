@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Student {
         private String name;
         private int studentId;
@@ -10,6 +12,50 @@ public class Student {
                 this.numberOfCredits = numberOfCredits;
                 this.gpa = gpa;
         }
+
+        public static String getGradeLevel(int numberOfCredits){
+                if (numberOfCredits <= 29) {
+                        return "freshman";
+                } else if (numberOfCredits <= 59) {
+                        return "sophomore";
+                } else if (numberOfCredits <= 89) {
+                        return "junior";
+                } else {
+                        return "senior";
+                }
+        }
+
+        public void addGrade(int courseCredits, double courseGrade){
+                double totalQualityScore = this.gpa*this.numberOfCredits;
+                totalQualityScore += courseCredits*courseGrade;
+                this.numberOfCredits += courseCredits;
+                this.gpa += courseGrade;
+                this.gpa = totalQualityScore/this.numberOfCredits;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+                Student student = (Student) o;
+                return studentId == student.studentId;
+        }
+
+        @Override
+        public int hashCode() {
+                return Objects.hashCode(studentId);
+        }
+
+        @Override
+        public String toString() {
+                return "Student{" +
+                        "name='" + name + '\'' +
+                        ", studentId=" + studentId +
+                        ", numberOfCredits=" + numberOfCredits +
+                        ", gpa=" + gpa +
+                        '}';
+        }
+
         // Drop your getters and setters below for the Student class.
         protected String getName(){
                 return name;
